@@ -18,3 +18,12 @@ export type AuthResponse = {
   email: string;
   token: string;
 };
+
+export type Profile = {
+  _id: string;
+  name: string;
+  email: string;
+  tel?: string;
+  role: Role;
+  createdAt: string;
+};
