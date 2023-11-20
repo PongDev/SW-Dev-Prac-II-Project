@@ -1,15 +1,15 @@
+import { getMe } from "@/lib/user";
 import { Button } from "@chakra-ui/react";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 import { FaTicket } from "react-icons/fa6";
 import { GiPlagueDoctorProfile } from "react-icons/gi";
+import { authOptions } from "./api/auth/[...nextauth]/auth";
 
 export default async function Home() {
-  const session = await getServerSession();
-
   return (
-    <main>
+    <main className="m-6">
       <div className="text-center mt-12 mb-8">
         <Image
           src="https://picsum.photos/256"

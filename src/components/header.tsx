@@ -1,11 +1,15 @@
-import { Button, ButtonGroup } from "@chakra-ui/react";
+import { authOptions } from "@/app/api/auth/[...nextauth]/auth";
+import { getMe } from "@/lib/user";
+import { Button, ButtonGroup, Center, Text, Tooltip } from "@chakra-ui/react";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { FaArrowRightToBracket, FaUser } from "react-icons/fa6";
 import ColorModeBtn from "./color-mode-btn";
 
 export default async function Header() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
+  const profile = session ? await getMe(session.user.token) : null;
+  const isAdmin = profile?.role === "admin";
 
   return (
     <div className="flex flex-row justify-between items-center py-5 px-5 border-b">
@@ -17,13 +21,27 @@ export default async function Header() {
         <ColorModeBtn />
 
         {session ? (
-          <Button
-            as={Link}
-            href="/api/auth/signout"
-            leftIcon={<FaArrowRightToBracket />}
-          >
-            Logout
-          </Button>
+          <>
+            <Button
+              as={Link}
+              href="/api/auth/signout"
+              leftIcon={<FaArrowRightToBracket />}
+            >
+              Logout
+            </Button>
+            <Tooltip label={session.user.email + (isAdmin ? " (ADMIN)" : "")}>
+              <div className="flex m-auto">
+                <Text className="font-semibold text-lg">
+                  {session.user.name}
+                </Text>
+                {isAdmin && (
+                  <Text className="font-light text-xs bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500">
+                    ADMIN
+                  </Text>
+                )}
+              </div>
+            </Tooltip>
+          </>
         ) : (
           <>
             <Button as={Link} href="/api/auth/signin" leftIcon={<FaUser />}>
