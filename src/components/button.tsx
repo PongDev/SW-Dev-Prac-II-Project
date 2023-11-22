@@ -1,9 +1,11 @@
 type BtnColor = "Submit" | "Danger";
 
 export default function Button({
+  type,
   text,
   color,
 }: {
+  type?: "submit" | "reset" | "button" | undefined;
   text: string;
   color: BtnColor;
 }) {
@@ -17,7 +19,10 @@ export default function Button({
       break;
   }
   return (
-    <button className={`${btnBgColor} rounded-md my-2 border border-black`}>
+    <button
+      className={`${btnBgColor} rounded-md my-2 border border-black`}
+      type={type}
+    >
       {text}
     </button>
   );

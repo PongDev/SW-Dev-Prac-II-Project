@@ -3,6 +3,7 @@ type Role = "admin" | "user";
 export type RegisterRequest = {
   name: string;
   email: string;
+  tel: string;
   role: Role;
   password: string;
 };
