@@ -16,6 +16,9 @@ COPY package.json pnpm-lock.yaml ./
 COPY public ./public
 COPY src ./src
 ENV NEXT_TELEMETRY_DISABLED 1
+ARG NEXTAUTH_URL
+ARG NEXTAUTH_SECRET
+ARG NEXT_PUBLIC_BACKEND_URL
 RUN pnpm build
 
 FROM base AS runner
