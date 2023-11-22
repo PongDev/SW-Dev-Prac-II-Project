@@ -1,5 +1,3 @@
-import ColorModeBtn from "./color-mode-btn";
-
 export default function Form({
   children,
   action,

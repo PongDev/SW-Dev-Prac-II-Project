@@ -1,3 +1,7 @@
+"use client";
+
+import { useColorMode } from "@chakra-ui/react";
+
 type BtnColor = "Submit" | "Danger";
 
 export default function Button({
@@ -11,13 +15,21 @@ export default function Button({
   text: string;
   color: BtnColor;
 }) {
+  const { colorMode } = useColorMode();
   let btnBgColor = "";
+
   switch (color) {
     case "Submit":
-      btnBgColor = "bg-green-300 hover:bg-green-500";
+      btnBgColor =
+        colorMode === "light"
+          ? "bg-green-300 hover:bg-green-500"
+          : "bg-green-700 hover:bg-green-600";
       break;
     case "Danger":
-      btnBgColor = "bg-red-400 hover:bg-red-600";
+      btnBgColor =
+        colorMode === "light"
+          ? "bg-red-400 hover:bg-red-500"
+          : "bg-red-600 hover:bg-red-400";
       break;
   }
   return (
