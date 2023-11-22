@@ -2,10 +2,12 @@ type BtnColor = "Submit" | "Danger";
 
 export default function Button({
   type,
+  disabled,
   text,
   color,
 }: {
   type?: "submit" | "reset" | "button" | undefined;
+  disabled?: boolean | undefined;
   text: string;
   color: BtnColor;
 }) {
@@ -22,6 +24,7 @@ export default function Button({
     <button
       className={`${btnBgColor} rounded-md my-2 border border-black`}
       type={type}
+      disabled={disabled}
     >
       {text}
     </button>

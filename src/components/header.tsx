@@ -50,10 +50,10 @@ export default async function Header() {
             <Button
               disabled
               as={Link}
-              href="/api/auth/register"
+              href="/register"
               leftIcon={<OcSignin2 />}
             >
-              Register (WIP)
+              Register
             </Button>
           </>
         )}

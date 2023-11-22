@@ -6,7 +6,7 @@ export default function Form({
   title,
 }: {
   children: React.ReactNode;
-  action?: string | ((formData: FormData) => Promise<void>) | undefined;
+  action?: string | ((formData: FormData) => void) | undefined;
   title: string;
 }) {
   return (
