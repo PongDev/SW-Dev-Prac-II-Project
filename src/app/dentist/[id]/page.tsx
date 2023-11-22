@@ -31,7 +31,10 @@ export default async function DentistDetails({
     if (!session) return undefined;
     const booking = await bookingAPI.getBookings(session!.user.token);
     console.log(JSON.stringify(booking));
-    return booking.data.filter((b) => b.user._id === session.user.id)[0];
+    return booking.data.filter(
+      (b) =>
+        (typeof b.user === "string" ? b.user : b.user._id) === session.user.id,
+    )[0];
   })();
 
   return (
@@ -52,14 +55,15 @@ export default async function DentistDetails({
         <CardFooter>
           {!myBook ? (
             <div className="flex justify-center  w-full">
-              {/* TODO */}
               <Button as={Link} href={`/dentist/${id}/book`} colorScheme="teal">
                 Make Booking with
               </Button>
             </div>
           ) : myBook.dentist._id === id ? (
             <div className="flex justify-center  w-full">
-              <Button colorScheme="red">Cancel Booking</Button>
+              <Button as={Link} href="/booking" colorScheme="red">
+                Cancel Booking
+              </Button>
             </div>
           ) : (
             <Alert status="error">
