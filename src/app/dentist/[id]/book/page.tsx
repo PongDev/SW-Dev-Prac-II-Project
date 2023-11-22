@@ -36,7 +36,10 @@ export default async function DentistBook({
     if (!session) return undefined;
     const booking = await bookingAPI.getBookings(session!.user.token);
     console.log(JSON.stringify(booking));
-    return booking.data.filter((b) => b.user._id === session.user.id)[0];
+    return booking.data.filter(
+      (b) =>
+        (typeof b.user === "string" ? b.user : b.user._id) === session.user.id,
+    )[0];
   })();
 
   if (myBook !== undefined) {

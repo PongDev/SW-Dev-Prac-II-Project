@@ -17,12 +17,14 @@ export type CreateBookingResponse = {
 export type GetBookingData = {
   _id: string;
   bookingDate: string;
-  user: {
-    _id: string;
-    name: string;
-    email: string;
-    tel: string;
-  };
+  user:
+    | {
+        _id: string;
+        name: string;
+        email: string;
+        tel: string;
+      }
+    | string;
   dentist: {
     _id: string;
     name: string;
