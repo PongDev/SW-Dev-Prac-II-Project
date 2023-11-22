@@ -1,4 +1,4 @@
-import { getMe } from "@/lib/user";
+import { userAPI } from "@/lib/user";
 import { Input } from "@chakra-ui/react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/auth";
@@ -6,7 +6,7 @@ import DentistCard from "./card";
 
 export default async function Dentist() {
   const session = await getServerSession(authOptions);
-  const profile = session ? await getMe(session.user.token) : null;
+  const profile = session ? await userAPI.getMe(session.user.token) : null;
   const isAdmin = profile?.role === "admin";
 
   return (

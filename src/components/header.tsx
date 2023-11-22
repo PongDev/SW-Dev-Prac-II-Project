@@ -1,6 +1,6 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/auth";
-import { getMe } from "@/lib/user";
-import { Button, ButtonGroup, Center, Text, Tooltip } from "@chakra-ui/react";
+import { userAPI } from "@/lib/user";
+import { Button, ButtonGroup, Text, Tooltip } from "@chakra-ui/react";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { FaArrowRightToBracket, FaUser } from "react-icons/fa6";
@@ -8,7 +8,7 @@ import ColorModeBtn from "./color-mode-btn";
 
 export default async function Header() {
   const session = await getServerSession(authOptions);
-  const profile = session ? await getMe(session.user.token) : null;
+  const profile = session ? await userAPI.getMe(session.user.token) : null;
   const isAdmin = profile?.role === "admin";
 
   return (
@@ -66,7 +66,7 @@ function OcSignin2() {
   return (
     <svg
       fill="currentColor"
-      stroke-width="0"
+      strokeWidth="0"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 16 16"
       className="overflow-visible text-current"
