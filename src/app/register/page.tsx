@@ -4,10 +4,10 @@ import Button from "@/components/button";
 import Form from "@/components/form";
 import FormTextInput from "@/components/form-text-input";
 import { useFormState } from "react-dom";
-import { registerAction } from "./registerAction";
 import { useToast } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { registerAction } from "./register.action";
 
 export default function Register() {
   const toast = useToast();
