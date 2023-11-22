@@ -38,7 +38,6 @@ import { FaEdit, FaExternalLinkAlt } from "react-icons/fa";
 import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai";
 import { useRef, useState } from "react";
 import { Dentist } from "@/lib/dentist.schema";
-import { editCard } from "./card-action";
 
 export type DentistCardProps = {
   dentist: Dentist;
@@ -54,7 +53,6 @@ const DentistCard = forwardRef<DentistCardProps, "div">((props, ref) => {
       dentist={dentist}
       closeEditMode={() => setEditMode(false)}
       isAdminCtrl={isAdminCtrl}
-      action={editCard}
       {...rest}
     />
   ) : (
