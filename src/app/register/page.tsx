@@ -7,7 +7,7 @@ export default function Register() {
   const registerFunction = async (registerForm: FormData) => {
     "use server";
 
-    userAPI.register({
+    await userAPI.register({
       name: registerForm.get("name")?.toString() ?? "",
       email: registerForm.get("email")?.toString() ?? "",
       tel: registerForm.get("tel")?.toString() ?? "",
