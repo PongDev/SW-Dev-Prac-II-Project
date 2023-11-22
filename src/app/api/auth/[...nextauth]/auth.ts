@@ -18,11 +18,8 @@ export const authOptions: AuthOptions = {
         try {
           const user = await userAPI.login({ email, password });
           const { _id: id, ...rest } = user;
-          console.log({ id, ...rest });
-          console.log("authorize");
           return { id, ...rest };
         } catch (error) {
-          console.error(error);
           return null;
         }
       },
@@ -33,15 +30,11 @@ export const authOptions: AuthOptions = {
   },
   callbacks: {
     async jwt({ token, user }) {
-      console.log("jwt");
-      console.log({ token, user });
       return { ...token, ...user };
     },
 
     async session({ session, token, user }) {
       session.user = token as any;
-      console.log("session");
-      console.log({ session, token, user });
       return session;
     },
   },
