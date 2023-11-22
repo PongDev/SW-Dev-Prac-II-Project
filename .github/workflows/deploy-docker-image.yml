@@ -36,10 +36,27 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_TOKEN }}
 
+      - name: Set ENV
+        id: set-env
+        run: |
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            echo "NEXTAUTH_URL=${{ secrets.MAIN_NEXTAUTH_URL }}" >> "$GITHUB_OUTPUT"
+            echo "NEXTAUTH_SECRET=${{ secrets.MAIN_NEXTAUTH_SECRET }}" >> "$GITHUB_OUTPUT"
+            echo "NEXT_PUBLIC_BACKEND_URL=${{ secrets.MAIN_NEXT_PUBLIC_BACKEND_URL }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.ref_name }}" = "dev" ]; then
+            echo "NEXTAUTH_URL=${{ secrets.DEV_NEXTAUTH_URL }}" >> "$GITHUB_OUTPUT"
+            echo "NEXTAUTH_SECRET=${{ secrets.DEV_NEXTAUTH_SECRET }}" >> "$GITHUB_OUTPUT"
+            echo "NEXT_PUBLIC_BACKEND_URL=${{ secrets.DEV_NEXT_PUBLIC_BACKEND_URL }}" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
           context: .
+          build-args: |
+            NEXTAUTH_URL=${{ steps.set-env.outputs.NEXTAUTH_URL }}
+            NEXTAUTH_SECRET=${{ steps.set-env.outputs.NEXTAUTH_SECRET }}
+            NEXT_PUBLIC_BACKEND_URL=${{ steps.set-env.outputs.NEXT_PUBLIC_BACKEND_URL }}
           push: true
           tags: ${{ secrets.IMAGE_REPO }}/swdevprac2/app-${{ github.ref_name }}:latest
           cache-from: type=gha
