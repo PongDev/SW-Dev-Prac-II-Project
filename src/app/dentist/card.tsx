@@ -42,6 +42,8 @@ import { Dentist } from "@/lib/dentist.schema";
 export type DentistCardProps = {
   dentist: Dentist;
   isAdminCtrl?: boolean;
+  editAction?: (formData: FormData) => void;
+  onDelete?: () => void;
 };
 
 const DentistCard = forwardRef<DentistCardProps, "div">((props, ref) => {
@@ -53,6 +55,10 @@ const DentistCard = forwardRef<DentistCardProps, "div">((props, ref) => {
       dentist={dentist}
       closeEditMode={() => setEditMode(false)}
       isAdminCtrl={isAdminCtrl}
+      action={(fd) => {
+        setEditMode(false);
+        props.editAction?.(fd);
+      }}
       {...rest}
     />
   ) : (
@@ -60,6 +66,7 @@ const DentistCard = forwardRef<DentistCardProps, "div">((props, ref) => {
       dentist={dentist}
       openEditMode={() => setEditMode(true)}
       isAdminCtrl={isAdminCtrl}
+      onDelete={props.onDelete}
       {...rest}
     />
   );
@@ -90,7 +97,7 @@ function DisplayBody(props: { dentist: Dentist }) {
           </span>
           <CLink
             href={`https://www.google.com/maps/search/${encodeURIComponent(
-              address,
+              address
             )}`}
             target="_blank"
             isExternal
@@ -121,10 +128,11 @@ type DisplayDentistCard = {
   dentist: Dentist;
   isAdminCtrl?: boolean;
   openEditMode: () => void;
+  onDelete?: () => void;
 };
 
 function DisplayDentistCard(props: DisplayDentistCard) {
-  const { dentist, isAdminCtrl, openEditMode, ...rest } = props;
+  const { dentist, isAdminCtrl, openEditMode, onDelete, ...rest } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -161,7 +169,12 @@ function DisplayDentistCard(props: DisplayDentistCard) {
         </VStack>
       </CardBody>
 
-      <DeleteDialog isOpen={isOpen} onClose={onClose} dentist={dentist} />
+      <DeleteDialog
+        isOpen={isOpen}
+        onClose={onClose}
+        dentist={dentist}
+        onDelete={onDelete}
+      />
     </Card>
   );
 }
@@ -238,6 +251,8 @@ export const EditBody = forwardRef<{ dentist?: Partial<Dentist> }, "form">(
             className="rounded-full m-auto"
           /> */}
 
+          <input type="hidden" value={props.dentist?._id} name="id" />
+
           <div className="flex flex-col text-md gap-1 text-left m-auto">
             <InputGroup>
               <InputLeftElement>
@@ -312,12 +327,13 @@ export const EditBody = forwardRef<{ dentist?: Partial<Dentist> }, "form">(
         </HStack>
       </>
     );
-  },
+  }
 );
 
 type DeleteDialogProps = {
   isOpen: boolean;
   onClose: () => void;
+  onDelete?: () => void;
 
   dentist: Dentist;
 };
@@ -348,7 +364,10 @@ function DeleteDialog(props: DeleteDialogProps) {
             <Button
               colorScheme="red"
               // TODO: Delete dentist
-              onClick={() => void props.onClose()}
+              onClick={() => {
+                props.onDelete?.();
+                props.onClose();
+              }}
               ml={3}
             >
               Delete
