@@ -34,7 +34,7 @@ export const bookingAPI = {
     bookingID: string,
   ): Promise<GetBookingResponse> {
     const response = await ky
-      .get(`/bookings/${bookingID}`, {
+      .get(`bookings/${bookingID}`, {
         prefixUrl: env.NEXT_PUBLIC_BACKEND_URL,
         headers: {
           Authorization: `Bearer ${token}`,
@@ -53,7 +53,7 @@ export const bookingAPI = {
     if (dentistId) searchParams.dentistId = dentistId;
 
     const response = await ky
-      .get(`/bookings`, {
+      .get(`bookings`, {
         prefixUrl: env.NEXT_PUBLIC_BACKEND_URL,
         headers: {
           Authorization: `Bearer ${token}`,
@@ -71,7 +71,7 @@ export const bookingAPI = {
     booking: UpdateBookingRequest,
   ): Promise<UpdateBookingResponse> {
     const response = await ky
-      .put(`/bookings/${bookingID}`, {
+      .put(`bookings/${bookingID}`, {
         json: booking,
         prefixUrl: env.NEXT_PUBLIC_BACKEND_URL,
         headers: {
@@ -88,7 +88,7 @@ export const bookingAPI = {
     bookingID: string,
   ): Promise<DeleteBookingResponse> {
     const response = await ky
-      .delete(`/bookings/${bookingID}`, {
+      .delete(`bookings/${bookingID}`, {
         prefixUrl: env.NEXT_PUBLIC_BACKEND_URL,
         headers: {
           Authorization: `Bearer ${token}`,

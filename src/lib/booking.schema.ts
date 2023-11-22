@@ -6,14 +6,15 @@ export type Booking = {
   _id: string;
 };
 
-export type CreateBookingRequest = Pick<Booking, "bookingDate" | "createdAt">;
+export type CreateBookingRequest = Pick<Booking, "bookingDate"> &
+  Partial<Pick<Booking, "createdAt">>;
 
 export type CreateBookingResponse = {
   success: boolean;
   data: Booking;
 };
 
-type GetBookingData = {
+export type GetBookingData = {
   _id: string;
   bookingDate: string;
   user: {

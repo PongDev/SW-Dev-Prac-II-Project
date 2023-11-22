@@ -3,6 +3,7 @@
 import { dentistAPI } from "@/lib/dentist";
 import { Dentist } from "@/lib/dentist.schema";
 import { useToast } from "@chakra-ui/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import DentistCard from "./card";
@@ -39,6 +40,7 @@ export default function DentistList(props: DentistListProps) {
       {dentists.map((dentist) => (
         <DentistCard
           key={dentist._id}
+          href={`/dentist/${dentist._id}`}
           dentist={dentist}
           isAdminCtrl={isAdminCtrl}
           editAction={editAction}

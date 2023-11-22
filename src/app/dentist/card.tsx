@@ -38,10 +38,12 @@ import { FaEdit, FaExternalLinkAlt } from "react-icons/fa";
 import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai";
 import { useRef, useState } from "react";
 import { Dentist } from "@/lib/dentist.schema";
+import Link from "next/link";
 
 export type DentistCardProps = {
   dentist: Dentist;
   isAdminCtrl?: boolean;
+  href?: string;
   editAction?: (formData: FormData) => void;
   onDelete?: () => void;
 };
@@ -63,6 +65,7 @@ const DentistCard = forwardRef<DentistCardProps, "div">((props, ref) => {
     />
   ) : (
     <DisplayDentistCard
+      href={props.href}
       dentist={dentist}
       openEditMode={() => setEditMode(true)}
       isAdminCtrl={isAdminCtrl}
@@ -72,12 +75,24 @@ const DentistCard = forwardRef<DentistCardProps, "div">((props, ref) => {
   );
 });
 
-function DisplayBody(props: { dentist: Dentist }) {
+export function DisplayBody(props: { dentist: Dentist; href?: string }) {
   const { name, hospital, expertist, address, tel, picture } = props.dentist;
 
   return (
     <>
-      <h3 className="font-semibold text-xl mb-1">{name}</h3>
+      <h3 className="font-semibold text-xl mb-1">
+        {props.href ? (
+          <Link
+            href={props.href}
+            className="hover:scale-105 hover:text-teal-500 transition-all"
+          >
+            {name}
+          </Link>
+        ) : (
+          name
+        )}
+      </h3>
+
       <HStack className="flex justify-between  w-full flex-wrap ">
         <Image
           src={picture}
@@ -127,6 +142,7 @@ function DisplayBody(props: { dentist: Dentist }) {
 type DisplayDentistCard = {
   dentist: Dentist;
   isAdminCtrl?: boolean;
+  href?: string;
   openEditMode: () => void;
   onDelete?: () => void;
 };
@@ -139,7 +155,7 @@ function DisplayDentistCard(props: DisplayDentistCard) {
     <Card variant="outline" rounded={16} {...rest}>
       <CardBody>
         <VStack>
-          <DisplayBody dentist={dentist} />
+          <DisplayBody href={props.href} dentist={dentist} />
           {isAdminCtrl && (
             <>
               <Divider />
@@ -155,7 +171,7 @@ function DisplayDentistCard(props: DisplayDentistCard) {
                   Edit
                 </Button>
                 <Button
-                  className="w-36 border-2 border-black"
+                  className="w-36 border-2 border-black z-50"
                   variant="solid"
                   leftIcon={<FaTrash />}
                   colorScheme="red"
