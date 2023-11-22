@@ -6,7 +6,8 @@ import FormTextInput from "@/components/form-text-input";
 import { useFormState } from "react-dom";
 import { registerAction } from "./registerAction";
 import { useToast } from "@chakra-ui/react";
-import { redirect } from "next/navigation";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
   const toast = useToast();
@@ -14,6 +15,14 @@ export default function Register() {
     message: "",
     status: 0,
   });
+  const router = useRouter();
+
+  useEffect(() => {
+    if (state.status === 200) {
+      const timeout = setTimeout(() => router.push("/api/auth/signin"), 2000);
+      return () => clearTimeout(timeout);
+    }
+  }, [router, state.status]);
 
   if (state?.message) {
     toast({
@@ -21,7 +30,6 @@ export default function Register() {
       status: state.status === 200 ? "success" : "error",
       position: "top-right",
     });
-    if (state.status === 200) redirect("/api/auth/signin");
   }
 
   return (
