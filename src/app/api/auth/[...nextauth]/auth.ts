@@ -1,4 +1,4 @@
-import { login } from "@/lib/user";
+import { userAPI } from "@/lib/user";
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -16,7 +16,7 @@ export const authOptions: AuthOptions = {
         }
         const { email, password } = credentials;
         try {
-          const user = await login({ email, password });
+          const user = await userAPI.login({ email, password });
           const { _id: id, ...rest } = user;
           console.log({ id, ...rest });
           console.log("authorize");

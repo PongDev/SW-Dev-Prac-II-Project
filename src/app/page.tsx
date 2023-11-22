@@ -1,4 +1,3 @@
-import { getMe } from "@/lib/user";
 import { Button } from "@chakra-ui/react";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
