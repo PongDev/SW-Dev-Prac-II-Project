@@ -19,6 +19,19 @@ export const dentistAPI = {
     const data: { data: Dentist[] } = await response.json();
     return data.data;
   },
+  async getDentist(id: string) {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dentists/${id}`,
+    );
+
+    if (!response.ok) {
+      throw new Error(`Fetch error: ${response.statusText}`);
+    }
+
+    const data: { data: Dentist } = await response.json();
+    return data.data;
+  },
+
   async createDentist(token: string, dentist: CreateDentistRequest) {
     const response = await ky
       .post("dentists", {
