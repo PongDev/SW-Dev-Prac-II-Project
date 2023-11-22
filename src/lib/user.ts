@@ -13,6 +13,7 @@ export const userAPI = {
       .post("auth/register", {
         json: req,
         prefixUrl: env.NEXT_PUBLIC_BACKEND_URL,
+        cache: "no-cache",
         fetch,
       })
       .json<AuthResponse>();
@@ -22,6 +23,7 @@ export const userAPI = {
       .post("auth/login", {
         json: req,
         prefixUrl: env.NEXT_PUBLIC_BACKEND_URL,
+        cache: "no-cache",
         fetch,
       })
       .json<AuthResponse>();
