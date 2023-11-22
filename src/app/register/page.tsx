@@ -1,24 +1,32 @@
+"use client";
+
 import Button from "@/components/button";
 import Form from "@/components/form";
 import FormTextInput from "@/components/form-text-input";
-import { userAPI } from "@/lib/user";
+import { useFormState } from "react-dom";
+import { registerAction } from "./registerAction";
+import { useToast } from "@chakra-ui/react";
+import { redirect } from "next/navigation";
 
 export default function Register() {
-  const registerFunction = async (registerForm: FormData) => {
-    "use server";
+  const toast = useToast();
+  const [state, formAction] = useFormState(registerAction, {
+    message: "",
+    status: 0,
+  });
 
-    await userAPI.register({
-      name: registerForm.get("name")?.toString() ?? "",
-      email: registerForm.get("email")?.toString() ?? "",
-      tel: registerForm.get("tel")?.toString() ?? "",
-      role: "user",
-      password: registerForm.get("password")?.toString() ?? "",
+  if (state?.message) {
+    toast({
+      title: state.message,
+      status: state.status === 200 ? "success" : "error",
+      position: "top-right",
     });
-  };
+    if (state.status === 200) redirect("/api/auth/signin");
+  }
 
   return (
     <div className="flex justify-center">
-      <Form action={registerFunction} title="Registration Form">
+      <Form action={formAction} title="Registration Form">
         <FormTextInput placeholder="Name" name="name" required />
         <FormTextInput
           placeholder="Telephone Number"
@@ -33,7 +41,12 @@ export default function Register() {
           type="password"
           required
         />
-        <Button color="Submit" text="Submit" type="submit" />
+        <Button
+          color="Submit"
+          text="Submit"
+          type="submit"
+          disabled={state.status === 200}
+        />
       </Form>
     </div>
   );
