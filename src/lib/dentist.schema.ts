@@ -9,3 +9,4 @@ export type Dentist = {
 };
 
 export type CreateDentistRequest = Omit<Dentist, "_id">;
+export type EditDentistRequest = Omit<Dentist, "_id">;
