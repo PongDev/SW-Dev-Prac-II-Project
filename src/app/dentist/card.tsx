@@ -112,7 +112,7 @@ export function DisplayBody(props: { dentist: Dentist; href?: string }) {
           </span>
           <CLink
             href={`https://www.google.com/maps/search/${encodeURIComponent(
-              address
+              address,
             )}`}
             target="_blank"
             isExternal
@@ -257,6 +257,7 @@ export const EditBody = forwardRef<{ dentist?: Partial<Dentist> }, "form">(
           className="font-semibold text-xl mb-1"
           defaultValue={name}
           name="name"
+          placeholder="Name"
         />
         <HStack className="flex justify-between  w-full flex-wrap ">
           {/* <Image
@@ -282,6 +283,7 @@ export const EditBody = forwardRef<{ dentist?: Partial<Dentist> }, "form">(
                 className="inline"
                 name="picture"
                 type="url"
+                placeholder="Picture"
                 required
               />
             </InputGroup>
@@ -296,6 +298,7 @@ export const EditBody = forwardRef<{ dentist?: Partial<Dentist> }, "form">(
                 defaultValue={hospital}
                 className="inline"
                 name="hospital"
+                placeholder="Hospital"
                 required
               />
             </InputGroup>
@@ -310,6 +313,7 @@ export const EditBody = forwardRef<{ dentist?: Partial<Dentist> }, "form">(
                 defaultValue={expertist}
                 className="inline"
                 name="expertist"
+                placeholder="Expertist"
                 required
               />
             </InputGroup>
@@ -324,6 +328,7 @@ export const EditBody = forwardRef<{ dentist?: Partial<Dentist> }, "form">(
                 defaultValue={address}
                 className="inline"
                 name="address"
+                placeholder="Address"
                 required
               />
             </InputGroup>
@@ -337,13 +342,14 @@ export const EditBody = forwardRef<{ dentist?: Partial<Dentist> }, "form">(
                 className="inline"
                 name="tel"
                 type="tel"
+                placeholder="Telephone"
               />
             </InputGroup>
           </div>
         </HStack>
       </>
     );
-  }
+  },
 );
 
 type DeleteDialogProps = {
