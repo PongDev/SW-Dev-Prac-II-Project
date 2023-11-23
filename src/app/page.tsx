@@ -1,3 +1,4 @@
+import ScrollText from "@/components/scroll-text";
 import { Button } from "@chakra-ui/react";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
@@ -19,7 +20,22 @@ export default async function Home() {
         />
         <h1 className="text-5xl font-bold tracking-tight m-4">
           Dentist Booking:{" "}
-          <span className="text-neutral-600">Intense Toothcare</span>
+          <span className="text-neutral-600">
+            <ScrollText
+              texts={[
+                "Intense",
+                "Powerful",
+                "Profound",
+                "Deep",
+                "Active",
+                "Energetic",
+              ]}
+              order="random"
+              switchInterval={3000}
+              switchSpeed={400}
+            />{" "}
+            Toothcare
+          </span>
         </h1>
         <h2 className="text-4xl text-gray-500 m-4">SELECT your option</h2>
       </div>
