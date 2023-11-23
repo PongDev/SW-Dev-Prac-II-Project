@@ -1,0 +1,54 @@
+@startuml
+
+start
+:User enter homepage;
+fork
+    label bk
+    :User click Manage Booking;
+    if (User is not logged in) then (yes)
+        :Redirect to login page;
+        stop;
+    endif
+    :Navigate to booking page;
+    if (User has no booking) then (yes)
+        :Display no booking message;
+        :User click "Meet dentist Now" button;
+    else (no)
+        :Display booking list;
+        stop;
+    endif
+fork again
+    :User click "Know your dentist" button;
+end merge
+:Redirect to dentist page;
+repeat :User choose a dentist to book;
+    :User click on that dentist's name;
+    :Redirect to that dentist's profile page;
+    switch (user's booking)
+    case ( has no booking )
+        :Display booking form;
+    case ( has other dentist booking )
+        :Alert that user already book other dentist;
+        :Show cancel booking button;
+        if (User click "Cancel booking" button) is (yes)
+            :Navigate to booking page;
+            stop
+        endif
+    case ( has this dentist booking)
+        :Alert that user he/she already book this dentist;
+        :Show cancel booking button;
+        if (User click "Cancel booking" button) is (yes)
+            :Navigate to booking page;
+            stop
+        endif
+    endswitch 
+backward:User click "Back" button;
+repeat while (User statified with the dentist's profile?) is (no) not (yes)
+:User click "Make Booking with" button;
+:User enter booking date;
+:User click "Submit" button;
+:System book user with the dentist;
+:Redirect to booking page;
+:User see the booking in the list;
+stop
+@enduml

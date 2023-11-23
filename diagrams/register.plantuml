@@ -1,0 +1,31 @@
+@startuml
+
+start
+:User enter homepage;
+fork
+    :User click on "Login";
+    :Navigate to login page;
+    repeat :User enter email and password;
+        :User click on "Login Button";
+        :System check username and password;
+    backward:System show error message;
+    repeat while (correct credential?) is (no) not (yes)
+fork again
+    :User click on "Register";
+    :Navigate to register page;
+    repeat :User enter profile and credential;
+        :User click on "Register Button";
+        :System check username and password;
+    backward:System show error message;
+    repeat while (correct information?) is (no) not (yes)
+end merge
+if (user want to sign out?) then (yes)
+    :User click on "Sign out";
+    :System sign out user;
+    :Redirect to homepage;
+else (no) 
+endif
+
+stop
+
+@enduml
