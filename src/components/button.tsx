@@ -34,7 +34,7 @@ export default function Button({
   }
   return (
     <button
-      className={`${btnBgColor} rounded-md my-2 border border-black`}
+      className={`${btnBgColor} rounded-md my-3 border border-black py-1`}
       type={type}
       disabled={disabled}
     >

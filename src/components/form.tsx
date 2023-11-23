@@ -12,7 +12,7 @@ export default function Form({
       action={action}
       className="border px-7 py-2 rounded-md m-3 flex flex-col w-[30rem]"
     >
-      <h3 className="font-semibold text-lg text-center">{title}</h3>
+      <h3 className="font-semibold text-2xl text-center py-2">{title}</h3>
       {children}
     </form>
   );
