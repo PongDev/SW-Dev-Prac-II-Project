@@ -1,6 +1,0 @@
-procs:
-  frontend:
-    shell: pnpm dev
-  backend:
-    shell: pnpm dev
-    cwd: ../DentistBooking
