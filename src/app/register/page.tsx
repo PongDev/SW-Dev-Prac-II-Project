@@ -33,7 +33,7 @@ export default function Register() {
   }
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center py-7">
       <Form action={formAction} title="Registration Form">
         <FormTextInput placeholder="Name" name="name" required />
         <FormTextInput
